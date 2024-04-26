@@ -2,7 +2,7 @@
 
 <template>
   <header class="bg-white shadow-sm">
-    <div class="container flex justify-between p-4 mx-auto">
+    <div class="container flex justify-between p-4 mx-auto font-semibold">
       <nuxt-link to="/" class="font-bold">Dojo</nuxt-link>
       <ul class="flex gap-4">
         <li>

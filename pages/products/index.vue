@@ -5,6 +5,11 @@ definePageMeta({
   layout: "products",
 })
 
+useHead({
+  title: "Dojo Nuxt | Merch",
+  meta: [{ name: "description", content: "Nuxt Merch Page" }],
+})
+
 const products = ref<Product[]>()
 const isLoading = ref<Boolean>(true)
 
@@ -38,9 +43,7 @@ fetchProducts()
   <div v-if="isLoading">Loading...</div>
   <div v-else class="grid grid-cols-4 gap-5">
     <div v-for="product in products">
-      <nuxt-link :to="`/products/${product.id}`">{{ product.title }}</nuxt-link>
+      <product-card :product="product" />
     </div>
   </div>
 </template>
-
-<style scoped></style>

@@ -1,33 +1,23 @@
 <script setup lang="ts">
-const { id } = useRoute().params
 import { type Product } from "@/types"
 
 definePageMeta({
   layout: "products",
 })
+const { id } = useRoute().params as { id: string }
 
-async function fetchData(url: string): Promise<Product[]> {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error("Network was not OK")
-    }
-    const data = await response.json()
-    return data as Product[]
-  } catch (error) {
-    console.error("Error fetching data: ", error)
-    return []
-  }
-}
-const product = ref()
-async function fetchProductById() {
-  product.value = (
-    await useFetch(`https://fakestoreapi.com/products/${id}`)
-  ).data
-}
-fetchProductById()
+const { data: product } = await useFetch<Product>(
+  `https://fakestoreapi.com/products/${id}`,
+  { key: id }
+)
 </script>
 
 <template>
-  <div>Product details for {{ id }} and {{ product }}</div>
+  <Head>
+    <Title>Nuxt Dojo | {{ product?.title }}</Title>
+    <Meta name="description" :content="product?.description" />
+  </Head>
+  <div>
+    <product-detail :product="product as Product" />
+  </div>
 </template>
